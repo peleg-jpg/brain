@@ -71,7 +71,7 @@ Other brain skills (`yt-capture`, `vault-ingest`) read this file to know where t
 
 Tell the user:
 
-- The vault is at `<path>` - open it in Obsidian to browse the 148 starter notes
+- The vault is at `<path>`. The install script offered to install Obsidian. If they accepted: open Obsidian, click "Open folder as vault", point at `<path>` to browse the 146 starter notes with graph view and wikilinks. If they declined: the vault works as plain markdown in any editor (VS Code, Foam, Logseq, plain `cat`/`grep`).
 - Try `/yt-capture <youtube-url>` to capture a video
 - Try `/vault-ingest` to process anything in `raw/` into the wiki
 - The framework rules are now active in the user's CLAUDE.md

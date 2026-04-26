@@ -132,6 +132,46 @@ else
     fi
 fi
 
+# --- Obsidian (GUI app, optional) ---
+section "Obsidian (optional - the vault GUI)"
+
+obsidian_installed() {
+    case "${PLATFORM}" in
+        mac) [[ -d "/Applications/Obsidian.app" ]] || ls "$HOME/Applications/Obsidian.app" >/dev/null 2>&1 ;;
+        linux-apt|linux-dnf|linux-yum) command -v obsidian >/dev/null 2>&1 || [[ -f "$HOME/.local/bin/Obsidian.AppImage" ]] ;;
+        wsl) return 1 ;;  # always tell WSL users to install on Windows side
+        *) return 1 ;;
+    esac
+}
+
+if obsidian_installed; then
+    info "Obsidian already installed."
+else
+    if confirm "Install Obsidian (GUI for browsing the vault and seeing the knowledge graph)?"; then
+        case "${PLATFORM}" in
+            mac)
+                brew install --cask obsidian \
+                    && info "Obsidian installed at /Applications/Obsidian.app" \
+                    || warn "Obsidian install failed - get it manually from https://obsidian.md"
+                ;;
+            linux-apt|linux-dnf|linux-yum)
+                warn "On Linux, Obsidian ships as an AppImage. Download from https://obsidian.md/download"
+                warn "Or install via snap: sudo snap install obsidian --classic"
+                warn "Or flatpak: flatpak install flathub md.obsidian.Obsidian"
+                ;;
+            wsl)
+                warn "On WSL, install Obsidian on the Windows side (not WSL): https://obsidian.md/download"
+                warn "Then open it and point to the vault via /mnt/c/... path or copy the vault to a Windows location."
+                ;;
+            *)
+                warn "Unsupported platform for automatic Obsidian install. Get it from https://obsidian.md"
+                ;;
+        esac
+    else
+        warn "Skipped Obsidian. Vault still works as plain markdown - open in any editor (VS Code, Foam, etc.)."
+    fi
+fi
+
 section "Summary"
 for tool in yt-dlp ffmpeg whisper graphify; do
     if command -v "${tool}" >/dev/null 2>&1; then
@@ -140,5 +180,12 @@ for tool in yt-dlp ffmpeg whisper graphify; do
         printf "  ${RED}MISS${RESET} %s\n" "${tool}"
     fi
 done
+if obsidian_installed; then
+    printf "  ${GREEN}OK${RESET}   obsidian\n"
+else
+    printf "  ${YELLOW}--${RESET}   obsidian (optional)\n"
+fi
 echo
 info "Done. Run /brain-init to set up your vault."
+echo
+info "After /brain-init: open Obsidian, click 'Open folder as vault', and pick your vault location."

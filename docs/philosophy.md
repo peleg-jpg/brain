@@ -45,7 +45,7 @@ The point: AI can write fast. It will gladly write five paragraphs when one will
 
 Most "framework" packages ship empty. New user installs, opens it, sees blank folders, doesn't know what success looks like, gives up.
 
-The brain plugin ships 148 worked notes - synthesized from one creator's video corpus on content strategy. You install it, you open the vault, and you immediately see "oh, this is what my vault will look like after a few months of capture." You can search across 148 notes. You can query the 614-node graph. You can browse the 17 master wiki pages.
+The brain plugin ships 148 worked notes - synthesized from one creator's video corpus on content strategy. You install it, you open the vault, and you immediately see "oh, this is what my vault will look like after a few months of capture." You can search across 146 notes. You can query the 614-node graph. You can browse the 17 master wiki pages.
 
 Then you start capturing your own videos and the vault grows from there.
 
@@ -57,6 +57,6 @@ It's the shortest name for what it actually is. Not "knowledge OS" (too grand). 
 
 ## On the starter content
 
-The 148 notes are anonymized study synthesis derived from publicly available videos by one content creator. The creator's name has been stripped and all direct quotes have been paraphrased. The notes are treated as transformative study material - my interpretation of patterns, not republished content. URLs to source videos have been removed.
+The 146 notes are anonymized study synthesis derived from publicly available videos by one content creator. The creator's name has been stripped and all direct quotes have been paraphrased. The notes are treated as transformative study material - my interpretation of patterns, not republished content. URLs to source videos have been removed.
 
 If the creator wants the content removed, open an issue. The framework value is the workflow, not the specific content - other users can build their own knowledge bases from creators they choose.

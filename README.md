@@ -2,7 +2,7 @@
 
 Turn Claude Code into a YouTube learning machine. Drop a YouTube URL, Claude downloads it, transcribes it, summarizes it into your Obsidian vault, and grows a semantic knowledge graph over time.
 
-Ships with a **worked starter vault**: 148 anonymized study notes + 17 master wiki pages + a 614-node knowledge graph, so the system is useful from day one - not just an empty skeleton.
+Ships with a **worked starter vault**: 146 anonymized study notes + 17 master wiki pages + a 614-node knowledge graph, so the system is useful from day one - not just an empty skeleton.
 
 ## Install (two commands)
 
@@ -20,10 +20,11 @@ Then run the setup wizard:
 The wizard:
 
 1. Installs YouTube tooling (`yt-dlp`, `ffmpeg`, `whisper`, `graphify`) - prompts before each install
-2. Creates an Obsidian vault at `~/obsidian-brain` (or wherever you choose)
-3. Copies the 148-note starter vault into it
-4. Merges the framework rules into your `~/.claude/CLAUDE.md`
-5. Tells you what to do next
+2. Optionally installs Obsidian (Mac via brew cask, Linux/WSL with manual instructions) - prompts before
+3. Creates a vault at `~/obsidian-brain` (or wherever you choose)
+4. Copies the 146-note starter vault into it
+5. Merges the framework rules into your `~/.claude/CLAUDE.md`
+6. Tells you what to do next (including: open Obsidian and add the vault folder)
 
 ## What you get
 
@@ -37,7 +38,7 @@ The wizard:
 
 ### Starter vault content
 
-- **148 anonymized study notes** - synthesized insights from one creator's video corpus on content strategy, growth, monetization, and creator psychology. Each note is ~500 words of paraphrased, instructional prose with wikilinks to the master topics.
+- **146 anonymized study notes** - synthesized insights from one creator's video corpus on content strategy, growth, monetization, and creator psychology. Each note is ~500 words of paraphrased, instructional prose with wikilinks to the master topics.
 - **17 master wiki pages** organized into Content Strategy, Growth and Algorithm, Monetization, and Creator Skills. Cross-linked, with concrete frameworks and tactics.
 - **A 614-node semantic knowledge graph** built by `graphify` from the wiki content. Query with `graphify query "<topic>"`.
 
@@ -75,7 +76,7 @@ Pick `1` and Claude updates your wiki, surgical-style, and shows you exactly wha
 
 ## How the starter vault was made
 
-The 148 starter notes are anonymized study notes synthesized from publicly available videos by a single content creator. The creator's name has been stripped, all direct quotes have been paraphrased, and all source URLs have been removed. The notes are treated as transformative study material rather than republished content.
+The 146 starter notes are anonymized study notes synthesized from publicly available videos by a single content creator. The creator's name has been stripped, all direct quotes have been paraphrased, and all source URLs have been removed. The notes are treated as transformative study material rather than republished content.
 
 If you want to study a specific creator yourself, use the `/yt-capture` workflow on their videos - you'll build your own knowledge base over time. The shipped 148 are there as a worked example so you see what your vault will look like after a few months of capture.
 
