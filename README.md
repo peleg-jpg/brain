@@ -7,7 +7,7 @@ Ships with a **worked starter vault**: 148 anonymized study notes + 17 master wi
 ## Install (two commands)
 
 ```
-/plugin marketplace add github.com/pelegdror/brain-marketplace
+/plugin marketplace add github.com/pelegdror/brain
 /plugin install brain
 ```
 

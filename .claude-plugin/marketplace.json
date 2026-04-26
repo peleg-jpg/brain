@@ -12,7 +12,7 @@
       "description": "A complete second-brain workflow for Claude Code. Drop a YouTube URL, Claude downloads/transcribes/summarizes it into your Obsidian vault, growing a semantic knowledge graph. Ships with a worked starter vault (148 anonymized study notes + 17 master wiki pages + a 614-node graph) so the system is useful from day one. Auto-installs yt-dlp, ffmpeg, whisper, and graphify.",
       "category": "productivity",
       "source": "./plugins/brain",
-      "homepage": "https://github.com/pelegdror/brain-marketplace"
+      "homepage": "https://github.com/pelegdror/brain"
     }
   ]
 }
