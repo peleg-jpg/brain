@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "brain",
+  "description": "Brain - turn Claude into a YouTube learning machine. Capture videos, distill them into an Obsidian knowledge graph, and grow a personal wiki over time.",
+  "owner": {
+    "name": "Peleg Dror",
+    "email": "support@pelegdror.com"
+  },
+  "plugins": [
+    {
+      "name": "brain",
+      "description": "A complete second-brain workflow for Claude Code. Drop a YouTube URL, Claude downloads/transcribes/summarizes it into your Obsidian vault, growing a semantic knowledge graph. Ships with a worked starter vault (148 anonymized study notes + 17 master wiki pages + a 614-node graph) so the system is useful from day one. Auto-installs yt-dlp, ffmpeg, whisper, and graphify.",
+      "category": "productivity",
+      "source": "./plugins/brain",
+      "homepage": "https://github.com/pelegdror/brain-marketplace"
+    }
+  ]
+}
