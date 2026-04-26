@@ -23,7 +23,7 @@ YouTube URL
 [/vault-ingest]
     |
     +--> read raw note
-    +--> classify topic (one of 17 master pages, or new)
+    +--> classify topic (one of 16 master pages, or new)
     +--> Karpathy 1: think first - state which wiki notes are affected
     +--> Karpathy 2: simplicity - update existing notes when possible
     +--> Karpathy 3: surgical - every change traces to the raw

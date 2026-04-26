@@ -2,7 +2,7 @@
 
 Turn Claude Code into a YouTube learning machine. Drop a YouTube URL, Claude downloads it, transcribes it, summarizes it into your Obsidian vault, and grows a semantic knowledge graph over time.
 
-Ships with a **worked starter vault**: 146 anonymized study notes + 17 master wiki pages + a 614-node knowledge graph, so the system is useful from day one - not just an empty skeleton.
+Ships with a **worked starter vault**: 146 anonymized study notes + 16 master wiki pages + a 614-node knowledge graph, so the system is useful from day one - not just an empty skeleton.
 
 ## Install (two commands)
 
@@ -39,7 +39,7 @@ The wizard:
 ### Starter vault content
 
 - **146 anonymized study notes** - synthesized insights from one creator's video corpus on content strategy, growth, monetization, and creator psychology. Each note is ~500 words of paraphrased, instructional prose with wikilinks to the master topics.
-- **17 master wiki pages** organized into Content Strategy, Growth and Algorithm, Monetization, and Creator Skills. Cross-linked, with concrete frameworks and tactics.
+- **16 master wiki pages** organized into Content Strategy, Growth and Algorithm, Monetization, and Creator Skills. Cross-linked, with concrete frameworks and tactics.
 - **A 614-node semantic knowledge graph** built by `graphify` from the wiki content. Query with `graphify query "<topic>"`.
 
 ### Framework rules
@@ -78,7 +78,7 @@ Pick `1` and Claude updates your wiki, surgical-style, and shows you exactly wha
 
 The 146 starter notes are anonymized study notes synthesized from publicly available videos by a single content creator. The creator's name has been stripped, all direct quotes have been paraphrased, and all source URLs have been removed. The notes are treated as transformative study material rather than republished content.
 
-If you want to study a specific creator yourself, use the `/yt-capture` workflow on their videos - you'll build your own knowledge base over time. The shipped 148 are there as a worked example so you see what your vault will look like after a few months of capture.
+If you want to study a specific creator yourself, use the `/yt-capture` workflow on their videos - you'll build your own knowledge base over time. The shipped 146 are there as a worked example so you see what your vault will look like after a few months of capture.
 
 ## Philosophy
 

@@ -45,7 +45,7 @@ The point: AI can write fast. It will gladly write five paragraphs when one will
 
 Most "framework" packages ship empty. New user installs, opens it, sees blank folders, doesn't know what success looks like, gives up.
 
-The brain plugin ships 148 worked notes - synthesized from one creator's video corpus on content strategy. You install it, you open the vault, and you immediately see "oh, this is what my vault will look like after a few months of capture." You can search across 146 notes. You can query the 614-node graph. You can browse the 17 master wiki pages.
+The brain plugin ships 146 worked notes - synthesized from one creator's video corpus on content strategy. You install it, you open the vault, and you immediately see "oh, this is what my vault will look like after a few months of capture." You can search across 146 notes. You can query the 614-node graph. You can browse the 16 master wiki pages.
 
 Then you start capturing your own videos and the vault grows from there.
 

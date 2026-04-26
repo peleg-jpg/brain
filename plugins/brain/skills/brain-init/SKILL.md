@@ -12,7 +12,7 @@ One-time setup for the brain second-brain workflow. Run this immediately after i
 
 1. Installs YouTube ingestion dependencies (`yt-dlp`, `ffmpeg`, `whisper`, `graphify`) with explicit per-tool confirmation
 2. Creates an Obsidian vault at the user's chosen location (default `~/obsidian-brain`)
-3. Copies the starter vault content (148 anonymized study notes + 17 master wiki pages + a 614-node semantic graph) into the vault
+3. Copies the starter vault content (146 anonymized study notes + 16 master wiki pages + a 614-node semantic graph) into the vault
 4. Merges the framework rules into the user's `~/.claude/CLAUDE.md` (idempotent - checks for marker before appending)
 5. Prints next steps
 

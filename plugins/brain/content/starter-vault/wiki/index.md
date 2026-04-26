@@ -39,7 +39,7 @@ This is the master index for the wiki section of your brain vault. Each entry be
 
 - Each topic page is a synthesized framework on that domain. Read top-to-bottom for a full overview, or scan headers for specific tactics.
 - Wikilinks `[[like this]]` cross-reference between topics. Follow them to see how concepts connect.
-- The `notes/` folder (if present) contains 148 short study notes, one per source video. Each is ~500 words covering a single principle or tactic, with wikilinks back to these master topics.
+- The `notes/` folder (if present) contains 146 short study notes, one per source video. Each is ~500 words covering a single principle or tactic, with wikilinks back to these master topics.
 - The semantic graph in `graphify-out/.graphify_semantic.json` clusters concepts. Query with `graphify query "<topic>"` for related nodes.
 
 ## Add your own
