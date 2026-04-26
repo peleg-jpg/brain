@@ -89,9 +89,22 @@ Read [docs/workflow.md](docs/workflow.md) for the operational guide: full ingest
 ## Requirements
 
 - Claude Code (`claude` CLI installed)
-- macOS, Linux, or WSL
+- macOS, Linux, Windows (via WSL), or Windows native
 - Python 3.8+
 - Disk: ~50MB for the plugin + ~100MB for the starter vault + 2GB for whisper models (only if you let it install whisper)
+
+## Installing Obsidian (per platform)
+
+The vault works as plain markdown in any editor. To get the full experience (graph view, wikilink navigation, plugins), install Obsidian:
+
+| Platform    | How                                                                                                                                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **macOS**   | `/brain-init` will offer to run `brew install --cask obsidian` for you                                                                                                                                              |
+| **Linux**   | Download from https://obsidian.md/download (AppImage, snap, or flatpak)                                                                                                                                             |
+| **Windows** | **Download installer from https://obsidian.md/download** (the .exe)                                                                                                                                                 |
+| **WSL**     | Install Obsidian on the **Windows** side (not WSL) using the link above. Then in Obsidian, point at your vault path via `\\wsl.localhost\Ubuntu\home\<user>\obsidian-brain` or copy the vault to a Windows location |
+
+After install, open Obsidian, click "Open folder as vault", and pick your vault path (default `~/obsidian-brain`).
 
 ## License
 
