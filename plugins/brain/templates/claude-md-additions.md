@@ -1,5 +1,5 @@
 <!-- BRAIN-FRAMEWORK-START -->
-<!-- This section was added by the brain plugin (https://github.com/pelegdror/brain) -->
+<!-- This section was added by the brain plugin (https://github.com/peleg-jpg/brain) -->
 <!-- Edit freely. Re-running /brain-init will not overwrite changes. -->
 
 # Brain Framework Rules
