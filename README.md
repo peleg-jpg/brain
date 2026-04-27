@@ -4,27 +4,29 @@ Turn Claude Code into a YouTube learning machine. Drop a YouTube URL, Claude dow
 
 Ships with a **worked starter vault**: 146 anonymized study notes + 16 master wiki pages + a 614-node knowledge graph, so the system is useful from day one - not just an empty skeleton.
 
-## Install (two commands)
+## Install
 
-```
-/plugin marketplace add github.com/peleg-jpg/brain
-/plugin install brain
-```
+### Recommended: download the bundle
 
-Then run the setup wizard:
+**[Download brain-bundle-v0.1.0.zip](https://github.com/peleg-jpg/brain/releases/download/v0.1.0/brain-bundle-v0.1.0.zip)** (632 MB - includes Obsidian for Mac, Windows, Linux)
 
-```
-/brain-init
-```
+1. Download and unzip
+2. Open the unzipped folder, read `README.txt`
+3. Run the installer:
+   - Mac / Linux / WSL: `bash install.sh`
+   - Native Windows: right-click `install.ps1` -> "Run with PowerShell"
+4. Follow the prompts (it asks before each install step)
 
-The wizard:
+The installer:
 
-1. Installs YouTube tooling (`yt-dlp`, `ffmpeg`, `whisper`, `graphify`) - prompts before each install
-2. Optionally installs Obsidian (Mac via brew cask, Linux/WSL with manual instructions) - prompts before
-3. Creates a vault at `~/obsidian-brain` (or wherever you choose)
-4. Copies the 146-note starter vault into it
-5. Merges the framework rules into your `~/.claude/CLAUDE.md`
-6. Tells you what to do next (including: open Obsidian and add the vault folder)
+1. Installs Homebrew (Mac/Linux) or uses winget (Windows) if missing
+2. Installs YouTube tooling (`yt-dlp`, `ffmpeg`, `whisper`, `graphify`) - prompts each
+3. Installs Obsidian from the bundled installer (no separate download needed)
+4. Copies the 5 skills to `~/.claude/skills/`
+5. Creates a vault at `~/obsidian-brain` (or wherever you choose)
+6. Copies the 146-note starter vault into it
+7. Merges the framework rules into your `~/.claude/CLAUDE.md`
+8. Tells you what to do next (including: open Obsidian and add the vault folder)
 
 ## What you get
 
