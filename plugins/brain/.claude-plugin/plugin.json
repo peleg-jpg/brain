@@ -1,7 +1,7 @@
 {
   "name": "brain",
-  "description": "Turn Claude Code into a YouTube learning machine. Capture, distill, and grow a personal knowledge wiki in Obsidian - with a worked 146-note starter vault and full YouTube ingestion pipeline.",
-  "version": "0.1.0",
+  "description": "Second brain for Claude Code: YouTube/article capture into an Obsidian vault, graphify knowledge graph, brain-router, dream (auto-memory janitor), harvest, brain-doctor (weekly repair) and transcript-memory (full-text search over every past session, with hooks). Ships a worked 146-note starter vault.",
+  "version": "0.2.0",
   "author": {
     "name": "Peleg Dror",
     "email": "support@pelegdror.com"

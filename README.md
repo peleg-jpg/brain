@@ -32,11 +32,27 @@ The installer:
 
 ### Skills
 
+Capture and distill:
+
 - **`/brain-init`** - one-time setup wizard
 - **`/yt-capture`** - drop a YouTube URL, get a clean note in your vault
 - **`/vault-ingest`** - process raw captures into the wiki using Karpathy's 4 maintenance principles
-- **`/diary`** - capture session context into a structured diary entry
-- **`/reflect`** - synthesize patterns across diary entries and propose CLAUDE.md updates
+- **`/harvest`** - distill a SHIPPED project or milestone into one evergreen wiki note
+
+Memory and hygiene:
+
+- **`brain-router`** - "where does this go?" - one fact, one home (vault / auto-memory / claude-mem / archive)
+- **`/dream`** - janitor for Claude Code auto-memory: fixes the MEMORY.md index, keeps it under budget, snapshot before every write
+- **`/brain-doctor`** - weekly checkup: broken wikilinks, stale graph, raw/ backlog, memory budget. Auto-fixes the safe list, proposes the rest
+- **`transcript-memory`** - stdlib full-text search over every past Claude Code session. Plugin hooks index sessions automatically and inject past work when you ask "did we / last time / how did we fix"
+- **`/diary`** and **`/reflect`** - optional manual session capture + pattern synthesis
+
+Third-party pieces (installed separately, not vendored):
+
+- **graphify** - the knowledge graph over the vault (`graphify query "<topic>"` before reading, `/graphify . --update` after writing). `/brain-init` installs it.
+- **claude-mem** - frozen cross-session memory: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@thedotmack`
+
+Read **[SKILLS.md](SKILLS.md)** for what each skill does and when Claude reaches for it, and **[CLAUDE-UPGRADE.md](CLAUDE-UPGRADE.md)** for the auto-use rules that make Claude use them without being asked (merged by `/brain-init`, or paste it yourself).
 
 ### Starter vault content
 
@@ -48,7 +64,7 @@ The installer:
 
 The setup wizard merges a curated set of rules into your `~/.claude/CLAUDE.md`:
 
-- Self-improvement loop (capture corrections in lessons.md)
+- Self-improvement loop (corrections become auto-memory feedback files, janitored by /dream)
 - Verification before done (no claiming work is complete without proving it)
 - Workflow orchestration (plan mode for non-trivial tasks, subagents for parallel work)
 - Code paste safety, secret safety
@@ -56,6 +72,7 @@ The setup wizard merges a curated set of rules into your `~/.claude/CLAUDE.md`:
 - The two-vault boundary (engineering vs research vs identity vs frozen)
 - Vault discipline (one-line index entries, raw/ as loading dock not warehouse)
 - The 3-step YouTube capture flow
+- Auto-use rules: graphify query before reading, transcript recall before redoing, brain-router on every "remember", /dream and /brain-doctor on their triggers
 
 ## Quick start (after install)
 
@@ -92,7 +109,7 @@ Read [docs/workflow.md](docs/workflow.md) for the operational guide: full ingest
 
 - Claude Code (`claude` CLI installed)
 - macOS, Linux, Windows (via WSL), or Windows native
-- Python 3.8+
+- Python 3.8+ (transcript-memory uses the bundled sqlite3 FTS5, no extra packages)
 - Disk: ~50MB for the plugin + ~100MB for the starter vault + 2GB for whisper models (only if you let it install whisper)
 
 ## Installing Obsidian (per platform)

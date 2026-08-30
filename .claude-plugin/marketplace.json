@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "brain",
-  "description": "Brain - turn Claude into a YouTube learning machine. Capture videos, distill them into an Obsidian knowledge graph, and grow a personal wiki over time.",
+  "description": "Brain - a second brain for Claude Code. Capture videos into an Obsidian knowledge graph, route every fact to one home, keep memory clean, search every past session.",
   "owner": {
     "name": "Peleg Dror",
     "email": "support@pelegdror.com"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "brain",
-      "description": "A complete second-brain workflow for Claude Code. Drop a YouTube URL, Claude downloads/transcribes/summarizes it into your Obsidian vault, growing a semantic knowledge graph. Ships with a worked starter vault (146 anonymized study notes + 16 master wiki pages + a 614-node graph) so the system is useful from day one. Auto-installs yt-dlp, ffmpeg, whisper, and graphify.",
+      "description": "A complete second-brain workflow for Claude Code: yt-capture, vault-ingest, harvest, brain-router, dream, brain-doctor, transcript-memory (+hooks). Drop a YouTube URL, Claude transcribes and summarizes it into your Obsidian vault and grows a semantic knowledge graph. Ships with a worked starter vault (146 notes + 16 wiki pages + 614-node graph). Auto-installs yt-dlp, ffmpeg, whisper and graphify.",
       "category": "productivity",
       "source": "./plugins/brain",
       "homepage": "https://github.com/peleg-jpg/brain"

@@ -131,6 +131,8 @@ The graph surfaces concept clusters, central nodes ("god nodes"), and bridges be
 
 ## When to use which skill
 
+Full roster with triggers (brain-router, /dream, /harvest, /brain-doctor, transcript-memory, claude-mem): [SKILLS.md](../SKILLS.md).
+
 | Skill               | When to use                                                     |
 | ------------------- | --------------------------------------------------------------- |
 | `/brain-init`       | Once, after installing the plugin                               |

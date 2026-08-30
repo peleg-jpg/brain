@@ -48,7 +48,7 @@ Verify the copy by listing `$VAULT` - should show `raw/`, `wiki/`, `graphify-out
 
 ### Step 4: Merge framework rules into the user's CLAUDE.md
 
-Read `${CLAUDE_PLUGIN_ROOT}/templates/claude-md-additions.md`. This contains the universal framework rules (Karpathy's 4 principles, vault discipline, two-vault boundary, YouTube capture flow, etc.).
+Read `${CLAUDE_PLUGIN_ROOT}/templates/claude-md-additions.md`. This contains the universal framework rules (Karpathy's 4 principles, vault discipline, two-vault boundary, YouTube capture flow) and the auto-use rules (when Claude reaches for graphify query, transcript recall, brain-router, /dream, /brain-doctor on its own).
 
 Check the user's `~/.claude/CLAUDE.md` for the marker `<!-- BRAIN-FRAMEWORK-START -->`. If present, the merge has already happened - skip and tell the user it's already configured. If absent, append the template content (with the markers wrapping it) to the end of the file. Create `~/.claude/CLAUDE.md` if it doesn't exist.
 
@@ -61,11 +61,11 @@ Write the user's chosen vault path to `~/.claude/brain-config.json`:
 ```json
 {
   "vault_path": "/path/the/user/chose",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
 ```
 
-Other brain skills (`yt-capture`, `vault-ingest`) read this file to know where the vault lives.
+All brain skills and scripts (`yt-capture`, `vault-ingest`, `harvest`, `brain-doctor`, `transcript-memory`) read this file to know where the vault lives. `$BRAIN_VAULT` overrides it.
 
 ### Step 6: Print next steps
 
@@ -74,7 +74,10 @@ Tell the user:
 - The vault is at `<path>`. The install script offered to install Obsidian. If they accepted: open Obsidian, click "Open folder as vault", point at `<path>` to browse the 146 starter notes with graph view and wikilinks. If they declined: the vault works as plain markdown in any editor (VS Code, Foam, Logseq, plain `cat`/`grep`).
 - Try `/yt-capture <youtube-url>` to capture a video
 - Try `/vault-ingest` to process anything in `raw/` into the wiki
-- The framework rules are now active in the user's CLAUDE.md
+- The framework rules and auto-use rules are now active in the user's CLAUDE.md
+- The plugin's hooks index every finished session into transcript-memory automatically; try `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/transcript_memory.py" stats` after the next session
+- For cross-session observations install claude-mem: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@thedotmack`
+- Run `/brain-doctor` once a week; see SKILLS.md in the repo for the full map
 
 ## Idempotency
 
