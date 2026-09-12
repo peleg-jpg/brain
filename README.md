@@ -20,7 +20,7 @@ Or without cloning:
 curl -fsSL https://raw.githubusercontent.com/peleg-jpg/brain/main/install.sh | bash
 ```
 
-What it does (Mac / Linux / WSL):
+What `install.sh` does (Mac / Linux / WSL):
 
 1. Installs Homebrew (Mac, if missing), then `yt-dlp`, `ffmpeg`, `whisper`, `graphify`, Obsidian
 2. Installs the brain plugin into Claude Code: all 10 skills + 4 hooks
@@ -32,7 +32,13 @@ What it does (Mac / Linux / WSL):
 
 Requirements: Claude Code CLI installed (`claude` on PATH), git. Re-running is safe. Custom vault path: `BRAIN_VAULT=/path bash install.sh`.
 
-Native Windows: not covered yet. Use WSL, or install manually: `/plugin marketplace add peleg-jpg/brain`, `/plugin install brain@brain`, then `/brain-init`.
+Native Windows: same thing with `install.ps1`. Right-click it > "Run with PowerShell", or in PowerShell:
+
+```
+irm https://raw.githubusercontent.com/peleg-jpg/brain/main/install.ps1 | iex
+```
+
+It uses winget for git, yt-dlp, ffmpeg, uv and Obsidian, uv for python3, whisper and graphify, then the same plugin, vault, config and CLAUDE.md steps. Needs Claude Code installed first (`irm https://claude.ai/install.ps1 | iex`) and winget (App Installer from the Microsoft Store, present on Windows 10 1709+ and 11).
 
 ## What you get
 

@@ -10,7 +10,7 @@ git clone https://github.com/peleg-jpg/brain && cd brain && bash install.sh
 
 One command installs the tooling (yt-dlp, ffmpeg, whisper, graphify, Obsidian), the brain plugin (all skills below + hooks), claude-mem, the graphify skill, the starter vault at `~/obsidian-brain`, `~/.claude/brain-config.json`, and merges the framework + auto-use rules into `~/.claude/CLAUDE.md`. No `/brain-init` needed.
 
-Manual path (native Windows, or if you prefer the plugin UI):
+Native Windows: `install.ps1` (same steps via winget + uv). Manual path if you prefer the plugin UI:
 
 ```
 /plugin marketplace add peleg-jpg/brain

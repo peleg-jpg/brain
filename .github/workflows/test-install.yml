@@ -1,0 +1,51 @@
+name: test-install
+on:
+  workflow_dispatch:
+  push:
+    paths: ["install.sh", "install.ps1", "plugins/brain/scripts/install-deps.sh", ".github/workflows/test-install.yml"]
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Claude Code
+        shell: pwsh
+        run: |
+          irm https://claude.ai/install.ps1 | iex
+          "$env:USERPROFILE\.local\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+      - name: Run install.ps1
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File install.ps1
+      - name: Verify
+        shell: pwsh
+        run: |
+          $env:Path += ";$env:USERPROFILE\.local\bin"
+          claude plugin list
+          claude plugin list | Select-String "brain@brain" | Out-Null; if (-not $?) { throw "brain plugin missing" }
+          if (-not (Test-Path "$env:USERPROFILE\obsidian-brain\wiki\index.md")) { throw "vault missing" }
+          if (-not (Test-Path "$env:USERPROFILE\.claude\brain-config.json")) { throw "config missing" }
+          if (-not (Select-String -Path "$env:USERPROFILE\.claude\CLAUDE.md" -Pattern "BRAIN-FRAMEWORK-START" -Quiet)) { throw "CLAUDE.md not merged" }
+          Get-Content "$env:USERPROFILE\.claude\brain-config.json"
+          foreach ($t in "yt-dlp","ffmpeg","whisper","graphify","python3") { if (-not (Get-Command $t -ErrorAction SilentlyContinue)) { throw "$t missing" } }
+          "ALL OK"
+
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Claude Code
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Run install.sh
+        run: bash install.sh
+      - name: Verify
+        run: |
+          claude plugin list
+          claude plugin list | grep -q "brain@brain" || { echo "brain plugin missing"; exit 1; }
+          test -f "$HOME/obsidian-brain/wiki/index.md" || { echo "vault missing"; exit 1; }
+          test -f "$HOME/.claude/brain-config.json" || { echo "config missing"; exit 1; }
+          grep -q "BRAIN-FRAMEWORK-START" "$HOME/.claude/CLAUDE.md" || { echo "CLAUDE.md not merged"; exit 1; }
+          for t in yt-dlp ffmpeg whisper graphify; do command -v "$t" || { echo "$t missing"; exit 1; }; done
+          echo ALL OK
