@@ -13,6 +13,7 @@ If auto-captions are unavailable, falls back to whisper transcription.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import subprocess
 import sys
@@ -94,10 +95,9 @@ def transcribe_with_whisper(audio_path: Path) -> str:
     result = subprocess.run(
         [
             "whisper", str(audio_path),
-            "--model", "small",
+            "--model", os.environ.get("BRAIN_WHISPER_MODEL", "turbo"),
             "--output_format", "txt",
             "--output_dir", str(audio_path.parent),
-            "--language", "en",
             "--verbose", "False",
         ],
         capture_output=True,

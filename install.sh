@@ -11,7 +11,8 @@
 #   4. Vault at ~/obsidian-brain with the 146-note starter content
 #   5. ~/.claude/brain-config.json
 #   6. Framework rules merged into ~/.claude/CLAUDE.md
-# Idempotent - re-running is safe. Override vault path: BRAIN_VAULT=/path bash install.sh
+# Idempotent - re-running is safe. Options: BRAIN_VAULT=/path  BRAIN_WHISPER_MODEL=large-v3 (default turbo)
+# Full explanation of every download: docs/install.md
 
 set -uo pipefail
 
@@ -39,7 +40,7 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 [[ -z "$CLAUDE_BIN" ]] && CLAUDE_BIN="$(command -v claude || true)"
 
 # --- 0. preflight ---
-section "Preflight"
+section "[0/7] Preflight"
 if [[ -z "$CLAUDE_BIN" ]]; then
     err "Claude Code CLI not found. Install it first: https://docs.claude.com/en/docs/claude-code/setup"
     exit 1
@@ -52,11 +53,22 @@ if [[ "$(uname -s)" == "Darwin" ]] && ! command -v brew >/dev/null 2>&1; then
 fi
 
 # --- 1. tooling ---
-section "Tooling (yt-dlp, ffmpeg, whisper, graphify, Obsidian)"
+section "[1/7] Tooling (yt-dlp, ffmpeg, whisper, graphify, Obsidian)"
 bash "$PLUGIN/scripts/install-deps.sh"
 
+# --- whisper model (one-time, so the first capture does not stall) ---
+WHISPER_MODEL="${BRAIN_WHISPER_MODEL:-turbo}"
+WPY="$(uv tool dir 2>/dev/null)/openai-whisper/bin/python"
+if [[ -x "$WPY" ]]; then
+    info "Whisper model '$WHISPER_MODEL' (turbo = 1.6 GB, cached in ~/.cache/whisper, skipped if present)"
+    "$WPY" -c "import whisper; whisper.load_model('$WHISPER_MODEL')" 2>&1 | grep -v "^\s*$" | tail -1
+    info "whisper model ready"
+else
+    warn "whisper venv not found - model downloads on first use instead"
+fi
+
 # --- 2. Claude Code plugins ---
-section "Claude Code plugins"
+section "[2/7] Claude Code plugins"
 install_plugin() {  # $1 = plugin@marketplace. --yes for new CLIs, plain + closed stdin for old ones
     "$CLAUDE_BIN" plugin install "$1" --yes 2>/dev/null || "$CLAUDE_BIN" plugin install "$1" </dev/null
 }
@@ -66,12 +78,13 @@ install_plugin brain@brain && info "brain plugin OK (10 skills + 4 hooks)" || er
 install_plugin claude-mem@thedotmack && info "claude-mem plugin OK" || warn "claude-mem install failed - cross-session memory off, install later with: claude plugin install claude-mem@thedotmack"
 
 # --- 3. graphify skill ---
+section "[3/7] graphify skill"
 if command -v graphify >/dev/null 2>&1; then
     graphify install --platform claude >/dev/null 2>&1 && info "graphify skill registered" || warn "graphify install --platform claude failed"
 fi
 
 # --- 4. vault ---
-section "Vault -> $VAULT"
+section "[4/7] Vault -> $VAULT"
 if [[ -d "$VAULT" && -n "$(ls -A "$VAULT" 2>/dev/null)" ]]; then
     warn "Vault exists and is not empty - leaving it as is"
 else
@@ -81,13 +94,14 @@ else
 fi
 
 # --- 5. config ---
+section "[5/7] Config"
 mkdir -p "$HOME/.claude"
 printf '{\n  "vault_path": "%s",\n  "version": "%s"\n}\n' "$VAULT" \
     "$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' "$PLUGIN/.claude-plugin/plugin.json")" > "$HOME/.claude/brain-config.json"
 info "Wrote ~/.claude/brain-config.json"
 
 # --- 6. CLAUDE.md ---
-section "Framework rules -> $CLAUDE_MD"
+section "[6/7] Framework rules -> $CLAUDE_MD"
 if grep -q "BRAIN-FRAMEWORK-START" "$CLAUDE_MD" 2>/dev/null; then
     info "Already merged - skipping"
 else
@@ -97,7 +111,7 @@ else
 fi
 
 # --- done ---
-section "Done"
+section "[7/7] Done"
 for t in yt-dlp ffmpeg whisper graphify; do
     command -v "$t" >/dev/null 2>&1 && printf "  ${GREEN}OK${RESET}   %s\n" "$t" || printf "  ${RED}MISS${RESET} %s\n" "$t"
 done

@@ -20,13 +20,14 @@ jobs:
       - name: Verify
         shell: pwsh
         run: |
-          $env:Path += ";$env:USERPROFILE\.local\bin"
+          $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User") + ";$env:USERPROFILE\.local\bin"
           claude plugin list
           claude plugin list | Select-String "brain@brain" | Out-Null; if (-not $?) { throw "brain plugin missing" }
           if (-not (Test-Path "$env:USERPROFILE\obsidian-brain\wiki\index.md")) { throw "vault missing" }
           if (-not (Test-Path "$env:USERPROFILE\.claude\brain-config.json")) { throw "config missing" }
           if (-not (Select-String -Path "$env:USERPROFILE\.claude\CLAUDE.md" -Pattern "BRAIN-FRAMEWORK-START" -Quiet)) { throw "CLAUDE.md not merged" }
           Get-Content "$env:USERPROFILE\.claude\brain-config.json"
+          if (-not (Test-Path "$env:USERPROFILE\.cache\whisper\large-v3-turbo.pt")) { throw "whisper model missing" }
           foreach ($t in "yt-dlp","ffmpeg","whisper","graphify","python3") { if (-not (Get-Command $t -ErrorAction SilentlyContinue)) { throw "$t missing" } }
           "ALL OK"
 
@@ -48,4 +49,5 @@ jobs:
           test -f "$HOME/.claude/brain-config.json" || { echo "config missing"; exit 1; }
           grep -q "BRAIN-FRAMEWORK-START" "$HOME/.claude/CLAUDE.md" || { echo "CLAUDE.md not merged"; exit 1; }
           for t in yt-dlp ffmpeg whisper graphify; do command -v "$t" || { echo "$t missing"; exit 1; }; done
+          test -f "$HOME/.cache/whisper/large-v3-turbo.pt" || { echo "whisper model missing"; exit 1; }
           echo ALL OK

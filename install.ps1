@@ -12,7 +12,8 @@
 #   4. Vault at ~\obsidian-brain with the 146-note starter content
 #   5. ~\.claude\brain-config.json
 #   6. Framework rules merged into ~\.claude\CLAUDE.md
-# Idempotent - re-running is safe. Override vault path: $env:BRAIN_VAULT = "D:\vault"
+# Idempotent - re-running is safe. Options: $env:BRAIN_VAULT = "D:\vault"  $env:BRAIN_WHISPER_MODEL = "large-v3" (default turbo)
+# Full explanation of every download: docs/install.md
 
 $ErrorActionPreference = "Continue"
 function Info($m)    { Write-Host "-> $m" -ForegroundColor Green }
@@ -47,7 +48,7 @@ $ClaudeMd = "$env:USERPROFILE\.claude\CLAUDE.md"
 RefreshPath
 
 # --- 0. preflight ---
-Section "Preflight"
+Section "[0/7] Preflight"
 if (-not (Has claude)) {
     Err "Claude Code CLI not found. Install it first in PowerShell:  irm https://claude.ai/install.ps1 | iex"
     exit 1
@@ -59,7 +60,7 @@ if (-not (Has winget)) {
 }
 
 # --- 1. tooling ---
-Section "Tooling (git, yt-dlp, ffmpeg, uv, Obsidian, python3, whisper, graphify)"
+Section "[1/7] Tooling (git, yt-dlp, ffmpeg, uv, Obsidian, python3, whisper, graphify)"
 WingetInstall "Git.Git"           "git"       # Claude Code hooks run through Git Bash
 WingetInstall "yt-dlp.yt-dlp"     "yt-dlp"
 WingetInstall "Gyan.FFmpeg"       "ffmpeg"
@@ -74,8 +75,19 @@ if (-not (Has python3)) {
 if (Has whisper)  { Info "whisper already installed" }  else { uv tool install openai-whisper | Out-Null; RefreshPath }
 if (Has graphify) { Info "graphify already installed" } else { uv tool install graphifyy | Out-Null; RefreshPath }
 
+# --- whisper model (one-time, so the first capture does not stall) ---
+$WhisperModel = if ($env:BRAIN_WHISPER_MODEL) { $env:BRAIN_WHISPER_MODEL } else { "turbo" }
+$Wpy = "$(uv tool dir)\openai-whisper\Scripts\python.exe"
+if (Test-Path $Wpy) {
+    Info "Whisper model '$WhisperModel' (turbo = 1.6 GB, cached in ~\.cache\whisper, skipped if present)"
+    & $Wpy -c "import whisper; whisper.load_model('$WhisperModel')" 2>&1 | Select-Object -Last 1
+    Info "whisper model ready"
+} else {
+    Warn "whisper venv not found - model downloads on first use instead"
+}
+
 # --- 2. Claude Code plugins ---
-Section "Claude Code plugins"
+Section "[2/7] Claude Code plugins"
 function InstallPlugin($name) {
     # --yes for new CLIs, plain for old ones
     $out = claude plugin install $name --yes 2>&1
@@ -88,13 +100,14 @@ claude plugin marketplace add thedotmack/claude-mem 2>&1 | Out-Null
 if (InstallPlugin "claude-mem@thedotmack") { Info "claude-mem plugin OK" } else { Warn "claude-mem install failed - install later with: claude plugin install claude-mem@thedotmack" }
 
 # --- 3. graphify skill ---
+Section "[3/7] graphify skill"
 if (Has graphify) {
     graphify install --platform claude 2>&1 | Out-Null
     if ($LASTEXITCODE -eq 0) { Info "graphify skill registered" } else { Warn "graphify install --platform claude failed" }
 }
 
 # --- 4. vault ---
-Section "Vault -> $Vault"
+Section "[4/7] Vault -> $Vault"
 if ((Test-Path $Vault) -and (Get-ChildItem $Vault -Force | Select-Object -First 1)) {
     Warn "Vault exists and is not empty - leaving it as is"
 } else {
@@ -105,13 +118,14 @@ if ((Test-Path $Vault) -and (Get-ChildItem $Vault -Force | Select-Object -First 
 }
 
 # --- 5. config ---
+Section "[5/7] Config"
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude" | Out-Null
 $ver = (Get-Content "$Plugin\.claude-plugin\plugin.json" -Raw | ConvertFrom-Json).version
 @{ vault_path = ($Vault -replace '\\', '/'); version = $ver } | ConvertTo-Json | Set-Content "$env:USERPROFILE\.claude\brain-config.json" -Encoding UTF8
 Info "Wrote ~\.claude\brain-config.json"
 
 # --- 6. CLAUDE.md ---
-Section "Framework rules -> $ClaudeMd"
+Section "[6/7] Framework rules -> $ClaudeMd"
 if ((Test-Path $ClaudeMd) -and (Select-String -Path $ClaudeMd -Pattern "BRAIN-FRAMEWORK-START" -Quiet)) {
     Info "Already merged - skipping"
 } else {
@@ -121,7 +135,7 @@ if ((Test-Path $ClaudeMd) -and (Select-String -Path $ClaudeMd -Pattern "BRAIN-FR
 }
 
 # --- done ---
-Section "Done"
+Section "[7/7] Done"
 foreach ($t in "yt-dlp", "ffmpeg", "whisper", "graphify", "python3") {
     if (Has $t) { Write-Host "  OK   $t" -ForegroundColor Green } else { Write-Host "  MISS $t" -ForegroundColor Red }
 }

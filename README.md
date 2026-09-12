@@ -30,6 +30,8 @@ What `install.sh` does (Mac / Linux / WSL):
 6. Writes `~/.claude/brain-config.json`
 7. Merges the framework + auto-use rules into `~/.claude/CLAUDE.md`
 
+Every download explained (what, why, size, where it lands, how to undo): [docs/install.md](docs/install.md).
+
 Requirements: Claude Code CLI installed (`claude` on PATH), git. Re-running is safe. Custom vault path: `BRAIN_VAULT=/path bash install.sh`.
 
 Native Windows: same thing with `install.ps1`. Right-click it > "Run with PowerShell", or in PowerShell:
