@@ -12,6 +12,8 @@ One command. No prompts, no `/brain-init`, everything lands in one go:
 git clone https://github.com/peleg-jpg/brain && cd brain && bash install.sh
 ```
 
+Or open the downloaded folder in VS Code: it runs `install.sh` for you in the terminal the first time (click "Trust" when VS Code asks, allow automatic tasks if prompted).
+
 Or without cloning:
 
 ```
