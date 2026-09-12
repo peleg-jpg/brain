@@ -6,7 +6,7 @@ Top-level navigation for this brain vault.
 
 (Add wiki subfolders here as they grow. One line per domain. Under 80 chars per line.)
 
-- (no domains yet - capture your first video to start)
+- [[wiki/index]] - content creation: 16 master pages over 146 study notes
 
 ## Reference
 
