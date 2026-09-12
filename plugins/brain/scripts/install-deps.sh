@@ -7,7 +7,7 @@
 #   - whisper    OpenAI Whisper for transcription when auto-captions unavailable
 #   - graphify   Semantic graph builder for the Obsidian vault
 #
-# Run by /brain-init on first install. Idempotent - re-running is safe.
+# Run by install.sh (or /brain-init). Idempotent - re-running is safe.
 
 set -uo pipefail
 
@@ -92,19 +92,22 @@ else
     fi
 fi
 
+ensure_uv() {
+    command -v uv >/dev/null 2>&1 && return 0
+    warn "uv not installed. Installing uv first..."
+    if [[ "${PLATFORM}" == "mac" ]]; then brew install uv; else curl -LsSf https://astral.sh/uv/install.sh | sh; fi
+    export PATH="$HOME/.local/bin:$PATH"
+}
+
 # --- whisper ---
 section "whisper (openai-whisper)"
 if command -v whisper >/dev/null 2>&1; then
-    info "whisper already installed: $(whisper --help 2>&1 | head -1)"
+    info "whisper already installed"
 else
-    if confirm "Install openai-whisper via pip (large download, ~2GB models)?"; then
-        if command -v pip3 >/dev/null 2>&1; then
-            pip3 install --user openai-whisper
-        elif command -v pip >/dev/null 2>&1; then
-            pip install --user openai-whisper
-        else
-            err "pip not found. Install Python 3 first."
-        fi
+    if confirm "Install openai-whisper via uv (large download, ~2GB models)?"; then
+        # uv tool, not pip: Homebrew/Debian Python block pip installs (PEP 668)
+        ensure_uv
+        uv tool install openai-whisper
         command -v whisper >/dev/null 2>&1 && info "whisper OK" || warn "whisper not in PATH after install - ensure ~/.local/bin is in PATH"
     else
         warn "Skipped whisper - videos without auto-captions cannot be transcribed."
@@ -114,17 +117,10 @@ fi
 # --- graphify ---
 section "graphify (semantic graph builder)"
 if command -v graphify >/dev/null 2>&1; then
-    info "graphify already installed: $(graphify --version 2>&1 | head -1)"
+    info "graphify already installed"
 else
     if confirm "Install graphify via uv (semantic graph builder for the vault)?"; then
-        if ! command -v uv >/dev/null 2>&1; then
-            warn "uv not installed. Installing uv first..."
-            if [[ "${PLATFORM}" == "mac" ]]; then
-                brew install uv
-            else
-                curl -LsSf https://astral.sh/uv/install.sh | sh
-            fi
-        fi
+        ensure_uv
         uv tool install graphifyy
         command -v graphify >/dev/null 2>&1 && info "graphify OK" || warn "graphify not in PATH after install"
     else
@@ -186,6 +182,6 @@ else
     printf "  ${YELLOW}--${RESET}   obsidian (optional)\n"
 fi
 echo
-info "Done. Run /brain-init to set up your vault."
+info "Tooling done."
 echo
-info "After /brain-init: open Obsidian, click 'Open folder as vault', and pick your vault location."
+info "Tip: in Obsidian, click 'Open folder as vault' and pick your vault location."

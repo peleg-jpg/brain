@@ -6,27 +6,31 @@ Ships with a **worked starter vault**: 146 anonymized study notes + 16 master wi
 
 ## Install
 
-### Recommended: download the bundle
+One command. No prompts, no `/brain-init`, everything lands in one go:
 
-**[Download brain-bundle-v0.1.0.zip](https://github.com/peleg-jpg/brain/releases/download/v0.1.0/brain-bundle-v0.1.0.zip)** (632 MB - includes Obsidian for Mac, Windows, Linux)
+```
+git clone https://github.com/peleg-jpg/brain && cd brain && bash install.sh
+```
 
-1. Download and unzip
-2. Open the unzipped folder, read `README.txt`
-3. Run the installer:
-   - Mac / Linux / WSL: `bash install.sh`
-   - Native Windows: right-click `install.ps1` -> "Run with PowerShell"
-4. Follow the prompts (it asks before each install step)
+Or without cloning:
 
-The installer:
+```
+curl -fsSL https://raw.githubusercontent.com/peleg-jpg/brain/main/install.sh | bash
+```
 
-1. Installs Homebrew (Mac/Linux) or uses winget (Windows) if missing
-2. Installs YouTube tooling (`yt-dlp`, `ffmpeg`, `whisper`, `graphify`) - prompts each
-3. Installs Obsidian from the bundled installer (no separate download needed)
-4. Copies the 5 skills to `~/.claude/skills/`
-5. Creates a vault at `~/obsidian-brain` (or wherever you choose)
-6. Copies the 146-note starter vault into it
-7. Merges the framework rules into your `~/.claude/CLAUDE.md`
-8. Tells you what to do next (including: open Obsidian and add the vault folder)
+What it does (Mac / Linux / WSL):
+
+1. Installs Homebrew (Mac, if missing), then `yt-dlp`, `ffmpeg`, `whisper`, `graphify`, Obsidian
+2. Installs the brain plugin into Claude Code: all 10 skills + 4 hooks
+3. Installs the claude-mem plugin (cross-session memory)
+4. Registers the graphify skill with Claude Code
+5. Creates the vault at `~/obsidian-brain` with the 146-note starter content
+6. Writes `~/.claude/brain-config.json`
+7. Merges the framework + auto-use rules into `~/.claude/CLAUDE.md`
+
+Requirements: Claude Code CLI installed (`claude` on PATH), git. Re-running is safe. Custom vault path: `BRAIN_VAULT=/path bash install.sh`.
+
+Native Windows: not covered yet. Use WSL, or install manually: `/plugin marketplace add peleg-jpg/brain`, `/plugin install brain@brain`, then `/brain-init`.
 
 ## What you get
 
